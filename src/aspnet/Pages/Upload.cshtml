@@ -1,0 +1,37 @@
+@page
+@model UserUpload.Pages.UploadModel
+@{
+    ViewData["Title"] = "File Upload";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Upload Files</h1>
+    
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="alert @(Model.IsSuccess ? "alert-success" : "alert-danger")" role="alert">
+            @Model.Message
+        </div>
+    }
+
+    <form method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="mb-3">
+            <label for="files" class="form-label">Choose files to upload:</label>
+            <input type="file" class="form-control" id="files" name="files" multiple required />
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
+    @if (Model.UploadedFiles != null && Model.UploadedFiles.Count > 0)
+    {
+        <div class="mt-4">
+            <h3>Recently Uploaded Files:</h3>
+            <ul class="list-group">
+                @foreach (var file in Model.UploadedFiles)
+                {
+                    <li class="list-group-item">@file</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
